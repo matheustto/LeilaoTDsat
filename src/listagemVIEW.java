@@ -1,6 +1,9 @@
 
 import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -18,7 +21,7 @@ public class listagemVIEW extends javax.swing.JFrame {
      */
     public listagemVIEW() {
         initComponents();
-        listarProdutos();
+     //   listarProdutos();
     }
 
     /**
@@ -141,7 +144,7 @@ public class listagemVIEW extends javax.swing.JFrame {
         ProdutosDAO produtosdao = new ProdutosDAO();
         
         //produtosdao.venderProduto(Integer.parseInt(id));
-        listarProdutos();
+       // listarProdutos();
     }//GEN-LAST:event_btnVenderActionPerformed
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
@@ -200,26 +203,38 @@ public class listagemVIEW extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable listaProdutos;
     // End of variables declaration//GEN-END:variables
+/*
+    public void listarProdutos(){
+        ProdutosDAO produtosdao = new ProdutosDAO();
+        conectaDAO dao = new conectaDAO();
 
-    private void listarProdutos(){
+        boolean status = dao.conectar();
+        if (status == false) {
+            JOptionPane.showMessageDialog(null, "Erro de conexão");
+        } else {
         try {
-            ProdutosDAO produtosdao = new ProdutosDAO();
             
-            DefaultTableModel model = (DefaultTableModel) listaProdutos.getModel();
-            model.setNumRows(0);
-            
-            ArrayList<ProdutosDTO> listagem = produtosdao.listarProdutos();
-            
-            for(int i = 0; i < listagem.size(); i++){
-                model.addRow(new Object[]{
-                    listagem.get(i).getId(),
-                    listagem.get(i).getNome(),
-                    listagem.get(i).getValor(),
-                    listagem.get(i).getStatus()
-                });
+            List<ProdutosDTO> listaP = produtosdao.listarProdutos();
+
+            DefaultTableModel tabelaP = (DefaultTableModel) listaProdutos.getModel();
+            listaProdutos.setRowSorter(new TableRowSorter(tabelaP));
+            tabelaP.setNumRows(0);
+
+            for (ProdutosDTO p : listaP) {
+                Object[] obj = new Object[]{
+                    p.getId(),
+                    p.getNome(),
+                    p.getValor(),
+                    p.getStatus()
+                };
+                tabelaP.addRow(obj);
             }
+            
+            dao.desconectar();
+            
         } catch (Exception e) {
+            
         }
     
-    }
+    }}*/
 }
