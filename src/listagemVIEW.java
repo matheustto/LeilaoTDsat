@@ -5,15 +5,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-
-/**
- *
- * @author Adm
- */
 public class listagemVIEW extends javax.swing.JFrame {
 
     /**
@@ -21,7 +12,12 @@ public class listagemVIEW extends javax.swing.JFrame {
      */
     public listagemVIEW() {
         initComponents();
-     //   listarProdutos();
+         try {
+            this.listarProdutos();
+        } catch (NullPointerException e) {
+            System.out.println("DEU ERRO");
+        }
+       
     }
 
     /**
@@ -203,7 +199,7 @@ public class listagemVIEW extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable listaProdutos;
     // End of variables declaration//GEN-END:variables
-/*
+
     public void listarProdutos(){
         ProdutosDAO produtosdao = new ProdutosDAO();
         conectaDAO dao = new conectaDAO();
@@ -236,5 +232,5 @@ public class listagemVIEW extends javax.swing.JFrame {
             
         }
     
-    }}*/
+    }}
 }
