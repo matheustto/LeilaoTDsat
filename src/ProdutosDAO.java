@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ProdutosDAO {
@@ -37,9 +38,12 @@ public class ProdutosDAO {
         
     }
     
-    public ArrayList<ProdutosDTO> listarProdutos(){
-         String sql = "select * from uc11.produtos";
+    public ArrayList<ProdutosDTO> listarProdutos(String Filtro){
+         String sql = "select * from uc11.produtos Where status like 'A Venda'";
 
+        if (!Filtro.isEmpty()) {
+            sql = sql + " Where id like ? ";
+        }
 
         try {
             prep = conn.prepareStatement(sql);
@@ -59,6 +63,32 @@ public class ProdutosDAO {
             System.out.println("Erro ao conectar: " + ex.getMessage());
             return null;
         }
+    }
+    
+     public List<ProdutosDTO> listarProdutosVendidos(String Filtro) {
+
+        String sql = "select * from uc11.produtos Where status like 'Vendido'";
+
+        try {
+            prep = conn.prepareStatement(sql);
+
+            resultset = prep.executeQuery();
+
+            while (resultset.next()) {
+                ProdutosDTO pr = new ProdutosDTO();
+                pr.setId(resultset.getInt("id"));
+                pr.setNome(resultset.getString("nome"));
+                pr.setValor(resultset.getInt("valor"));
+                pr.setStatus(resultset.getString("status"));
+                listagem.add(pr);
+            }
+            return listagem;
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ao conectar: " + ex.getMessage());
+            return null;
+        }
+
     }
     
      public int venderProduto(ProdutosDTO pr) {

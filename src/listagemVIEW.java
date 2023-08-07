@@ -13,7 +13,7 @@ public class listagemVIEW extends javax.swing.JFrame {
     public listagemVIEW() {
         initComponents();
          try {
-            this.listarProdutos();
+            this.listarProdutos("");
         } catch (NullPointerException e) {
             System.out.println("DEU ERRO");
         }
@@ -147,7 +147,7 @@ public class listagemVIEW extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Produto não localizado");
             } else {
                 produtosdao.venderProduto(pr);
-                listarProdutos();
+                listarProdutos("");
             }
             dao.desconectar();
         } else {
@@ -157,8 +157,8 @@ public class listagemVIEW extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVenderActionPerformed
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
-        //vendasVIEW vendas = new vendasVIEW(); 
-        //vendas.setVisible(true);
+        VendasVIEW vendas = new VendasVIEW(); 
+        vendas.setVisible(true);
     }//GEN-LAST:event_btnVendasActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
@@ -213,7 +213,7 @@ public class listagemVIEW extends javax.swing.JFrame {
     private javax.swing.JTable listaProdutos;
     // End of variables declaration//GEN-END:variables
 
-    public void listarProdutos(){
+    public void listarProdutos(String Filtro){
         ProdutosDAO produtosdao = new ProdutosDAO();
         conectaDAO dao = new conectaDAO();
 
@@ -223,7 +223,7 @@ public class listagemVIEW extends javax.swing.JFrame {
         } else {
         try {
             
-            List<ProdutosDTO> listaP = produtosdao.listarProdutos();
+            List<ProdutosDTO> listaP = produtosdao.listarProdutos("");
 
             DefaultTableModel tabelaP = (DefaultTableModel) listaProdutos.getModel();
             listaProdutos.setRowSorter(new TableRowSorter(tabelaP));
